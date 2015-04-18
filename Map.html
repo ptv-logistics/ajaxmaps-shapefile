@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <!--[if IE]><script type="text/javascript" src="http://80.146.239.180/xajax/webcomponent/script/excanvas.js"></script><![endif]-->
+    <script type="text/javascript" src="http://80.146.239.180/xajax/webcomponent/script/qooxdoo/script/qx-transport.js"></script>
+    <script type="text/javascript" src="http://80.146.239.180/xajax/.qxrpc"></script>
+    <script type="text/javascript" src="http://80.146.239.180/xajax/webcomponent/script/map.js"></script>
+    <script type="text/javascript">
+      var tileLayer;
+
+      function init() {
+
+        com.ptvag.webcomponent.map.CoordUtil.useGoogleZoomLevels();
+
+        var PTV_CIRCUM = 6371000.0 * 2.0 * Math.PI;
+
+        var getTileKey = function(left, top, right, bottom) {
+            var z = Math.round(-Math.log((right - left) / PTV_CIRCUM) / Math.log(2.0));
+            var x = Math.round((0.5 + left / PTV_CIRCUM) * (1 << z));
+            var y = Math.round((0.5 - top / PTV_CIRCUM) * (1 << z));
+            var q = "x=" + x + "&y=" + y + "&z=" + z;
+
+            return q;
+        }
+        
+        var container = document.getElementById("mapContainer");
+
+        var map = new com.ptvag.webcomponent.map.Map(container);
+
+        var tileBuilder = new com.ptvag.webcomponent.map.RequestBuilder(map, true);
+
+        var tileBuildRequest = tileBuilder.buildRequest;
+        tileBuilder.buildRequest = function(left, top, right, bottom, width, height, loggingInfo, version, angle) {
+          var req = tileBuildRequest(left, top, right, bottom, width, height, loggingInfo, version, angle);
+          req.url = "ShapeTileHandler.ashx?" + getTileKey(left, top, right, bottom) + "&layer=someLayer&style=someStyle";
+		  return req;
+	    }
+
+        tileLayer = new com.ptvag.webcomponent.map.layer.TileMapLayer(tileBuilder);
+        tileLayer.setIsRelative(true);
+        tileLayer.setRemoveUnusedElements(true);
+
+        map.addLayer(tileLayer, "tile", 0, map.getLayer("label"));
+      }
+    </script>
+  </head>
+
+  <body onload="init()">
+    <div id="mapContainer" style="width:100%; height:100%"></div>
+  </body>
+</html>
