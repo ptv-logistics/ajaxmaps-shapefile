@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <title>Shapefile Tile Server Tutorial</title>
+    <link type="text/css" rel="stylesheet" href="css/xserver.css" />
+</head>
+<body>
+    <h1></h1>
+	<table width="100%">
+	    <tr valign="bottom">
+	        <td width="1"><img src="images/ptv.png" /></td>
+	        <td><h1>Build a simple tile server for Esri shapefiles to show them in PTV Ajax Maps</h1></td>
+	    </tr>
+	    <tr>
+	      <td colspan="2"><hr/></td>
+	    </tr>
+	    <tr>
+	      <td></td>
+	      <td>
+	        <h2>Description</h2>
+		    <p>The tutorial demonstrates:</p>_
+		    <ul>
+		    <li>
+              Implementing a custom tile server with ASP.NET, so you can request a tile image using an url like<br/>					
+              <em><a href="ShapeTileHandler.ashx?x=4&y=2&z=3&layer=someLayer&style=someStyle">
+  	    	  ShapeTileHandler.ashx?x=4&amp;y=2&amp;z=3&amp;layer=someLayer&amp;style=someStyle</a></em>
+		    </li>
+		    <li>
+              Configuring ajaxmaps to display the custom tile layer like in the sample below.
+		    </li>
+		    <li>
+              Utilizing SharpMap from <em><a href="http://sharpmap.codeplex.com">
+		      http://sharpmap.codeplex.com</a></em> for on-the-fly rendering of images from a shape file 
+		    </li>
+		    </ul>
+            <p>You can also use the sample as blueprint to render your custom data format 
+            and embed it into Ajax Maps.</p>
+	        <h2>World countries colored by population density</h2>
+              <iframe id="mapFrame" name="mapFrame" scrolling="no"
+                 frameborder="0" marginwidth="0" marginheight="0"
+                 width="640px" height="480px" src="Map.html"></iframe>
+	       </td>
+		</tr>
+	</table>
+	<hr />
+	<font size="-2">&#169; 2011 PTV AG</font>
+  </body>
+</html>
